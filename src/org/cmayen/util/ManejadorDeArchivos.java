@@ -1,6 +1,8 @@
 package org.cmayen.util;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +24,28 @@ public class ManejadorDeArchivos {
     
     public void escribir(String texto){
         escritor.println(texto);
+    }
+    
+    public String leer(String archivo){
+        StringBuffer sb = new StringBuffer();
+        
+        try {
+            lector = new BufferedReader(new FileReader(archivo));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        String linea;
+        
+        try {
+            while((linea = lector.readLine()) != null){
+                sb.append(linea + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return sb.toString();
     }
     
 }

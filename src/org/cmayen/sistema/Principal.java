@@ -3,13 +3,28 @@ package org.cmayen.sistema;
 import java.util.Date;
 import org.cmayen.bean.*;
 import org.cmayen.exception.ValidarException;
+import org.cmayen.interfaces.OnClickListener;
 import org.cmayen.util.ManejadorDeArchivos;
 
 public class Principal {
 
     public static void main(String args[]) {
 
-        try {
+        OnClickListener onClickListener = new OnClickListener() {
+            @Override
+            public void onClick(String mensaje) {
+                System.out.println("Un : " + mensaje);
+            }
+        };
+        
+        onClickListener.onClick("Click en el panel de control");
+        
+        OnClickListener onClickListenerLambda = (String mensaje) -> {
+            System.out.println("Un : " + mensaje);
+        };
+        onClickListenerLambda.onClick("Click derecho en el escritorio de windows");
+        
+        /*try {
             String authors[] = {"Coello", "Killer"};
             Book lista[] = new Book[5];
             lista[0] = new Book("Book 1", new Date(), "Editorial 1", authors);
@@ -25,8 +40,12 @@ public class Principal {
 
             imprimirLibros(lista);
             guardarInformacion(lista);
+            mostrarInformacion("books.txt");
+            int n = 100;
+            int m = 100/2;
+            assert n != m*2 : "Los valores son iguales";
             
-        } catch (ValidarException e) {
+        } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         } finally {
             System.out.println("Esto siempre se ejecuta si o no, existe una exeption");
@@ -63,6 +82,12 @@ public class Principal {
         for (int i = 0; i < libros.length; i++) {
             manejador.escribir(libros[i].toString());
         }
+        */
 
+    }
+    
+    public static void mostrarInformacion(String archivo){
+        ManejadorDeArchivos manejador = new ManejadorDeArchivos(archivo);
+        System.out.println(manejador.leer(archivo));
     }
 }
